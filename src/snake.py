@@ -18,6 +18,15 @@ class Snake(object):
         self.tail.append(Segment(self, self.pos - self.ruch))
         self.tail.append(Segment(self, self.pos - 2 * self.ruch))
 
+        self.subtractColor = Vector3(30,70,10)
+        self.shadeColor = Vector3(80, 120, 20)
+        self.snakeColor = Vector3(120, 180, 25)
+        self.highlightColor = Vector3(150, 190, 30)
+        self.eyesColor = Vector3(255, 250, 125)
+        self.eyeShadeColor = Vector3(30, 60, 5)
+        self.black = Vector3(0, 0, 0)
+        self.white = Vector3(255, 255, 255)
+
     def tick(self):
         # input
         pressed = pygame.key.get_pressed()
@@ -45,125 +54,131 @@ class Snake(object):
 
     def draw(self):
 
-        self.tail[self.length - 1].drawLastShade(Vector3(40,80,15) )
+        self.tail[self.length - 1].drawLastShade(self.subtractColor)
 
         for i in range(self.length - 2, -1, -1):
-            self.tail[i].drawShade(Vector3(40,80,15) / self.length, i)
+            self.tail[i].drawShade(self.subtractColor / self.length, i)
 
-        self.tail[self.length - 1].drawLastLight(Vector3(40,80,15) )
+        self.tail[self.length - 1].drawLastLight(self.subtractColor)
 
         for i in range(self.length - 2, -1, -1):
-            self.tail[i].drawLight(Vector3(40,80,15) / self.length, i)
+            self.tail[i].drawLight(self.subtractColor / self.length, i)
 
         ellipse = pygame.Rect(self.pos.x - 12 + self.ruch.x / 1.5, self.pos.y - 12 + self.ruch.y / 1.5, 24, 24)
-        pygame.draw.ellipse(self.game.screen, (70, 150, 20), ellipse)
+        pygame.draw.ellipse(self.game.screen, self.shadeColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x - 9 + self.ruch.x / 1.5, self.pos.y - 11 + self.ruch.y / 1.5, 20, 20)
-        pygame.draw.ellipse(self.game.screen, (100, 200, 25), ellipse)
+        pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x -16, self.pos.y - 16, 32, 32)
-        pygame.draw.ellipse(self.game.screen, (70, 150, 20), ellipse)
+        pygame.draw.ellipse(self.game.screen, self.shadeColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 13, self.pos.y - 15, 28, 28)
-        pygame.draw.ellipse(self.game.screen, (100, 200, 25), ellipse)
+        pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 5, self.pos.y - 9, 14, 14)
-        pygame.draw.ellipse(self.game.screen, (125, 210, 27), ellipse)
+        pygame.draw.ellipse(self.game.screen,  self.highlightColor, ellipse)
 
         if self.ruch.y == -self.vel:
             ellipse = pygame.Rect(self.pos.x - 1, self.pos.y - 19, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 11, self.pos.y - 19, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x + 1, self.pos.y - 17, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 9, self.pos.y - 17, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 4, self.pos.y - 16, 3, 4)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 3, self.pos.y - 16, 4, 6)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x - 6, self.pos.y - 16, 3, 4)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x - 7, self.pos.y - 16, 4, 6)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 10, self.pos.y - 14, 20, 10)
-            pygame.draw.ellipse(self.game.screen, (100, 200, 25), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
 
         if self.ruch.y == self.vel:
             ellipse = pygame.Rect(self.pos.x - 1, self.pos.y + 5, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 11, self.pos.y + 5, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x + 1, self.pos.y  + 7, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 9, self.pos.y + 7, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 4, self.pos.y + 9, 3, 4)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 3, self.pos.y + 8, 4, 6)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x - 6, self.pos.y + 9, 3, 4)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x - 7, self.pos.y + 8, 4, 6)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
+
+            ellipse = pygame.Rect(self.pos.x - 4, self.pos.y + 8, 2, 2)
+            pygame.draw.ellipse(self.game.screen, self.white, ellipse)
+
+            ellipse = pygame.Rect(self.pos.x + 6, self.pos.y + 8, 2, 2)
+            pygame.draw.ellipse(self.game.screen, self.white, ellipse)
 
         if self.ruch.x == self.vel:
             ellipse = pygame.Rect(self.pos.x + 8, self.pos.y - 11, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x + 8, self.pos.y - 3 , 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 10, self.pos.y  - 10, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 10, self.pos.y - 10, 8, 8)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 10, self.pos.y  - 2, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 10, self.pos.y - 2, 8, 8)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 13, self.pos.y - 7, 4, 3)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 11, self.pos.y - 8, 6, 4)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x + 13, self.pos.y + 1, 4, 3)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x + 11, self.pos.y , 6, 4)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
             ellipse = pygame.Rect(self.pos.x + 4, self.pos.y - 11, 8, 18)
-            pygame.draw.ellipse(self.game.screen, (100, 200, 25), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
 
         if self.ruch.x == - self.vel:
             ellipse = pygame.Rect(self.pos.x - 18, self.pos.y - 11, 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x -18, self.pos.y - 3 , 12, 12)
-            pygame.draw.ellipse(self.game.screen, (25, 75, 0), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyeShadeColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 16, self.pos.y  - 10, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 16, self.pos.y  - 2, 8, 8)
-            pygame.draw.ellipse(self.game.screen, (250, 240, 125), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.eyesColor, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x - 15, self.pos.y - 7, 4, 3)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x - 15, self.pos.y - 8, 6, 4)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
-            ellipse = pygame.Rect(self.pos.x - 15, self.pos.y + 1, 4, 3)
-            pygame.draw.ellipse(self.game.screen, (0, 0, 0), ellipse)
+            ellipse = pygame.Rect(self.pos.x - 15, self.pos.y , 6, 4)
+            pygame.draw.ellipse(self.game.screen, self.black, ellipse)
 
             ellipse = pygame.Rect(self.pos.x - 10, self.pos.y - 11, 8, 18)
-            pygame.draw.ellipse(self.game.screen, (100, 200, 25), ellipse)
+            pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
 
-    def drawShadow(self):
+    def drawShadow(self,shadowColor):
 
 
         for i in range(self.length - 1, -1, -1):
-            self.tail[i].drawShadow()
+            self.tail[i].drawShadow(shadowColor)
 
         ellipse = pygame.Rect(self.pos.x - 16 + self.ruch.x / 1.5, self.pos.y - 8 + self.ruch.y / 1.5, 24, 24)
-        pygame.draw.ellipse(self.game.screen, (35, 25, 15, 128), ellipse)
+        pygame.draw.ellipse(self.game.screen, shadowColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x -20, self.pos.y - 12, 32, 32)
-        pygame.draw.ellipse(self.game.screen, (35, 25, 15, 128), ellipse)
+        pygame.draw.ellipse(self.game.screen, shadowColor, ellipse)
 
 
 
@@ -178,22 +193,22 @@ class Segment(object):
 
     def drawShade(self, colour, i):
         ellipse = pygame.Rect(self.pos.x - 12, self.pos.y - 12, 24, 24)
-        pygame.draw.ellipse(self.head.game.screen, (50, 120, 20) - colour * i, ellipse)
+        pygame.draw.ellipse(self.head.game.screen, self.head.shadeColor - colour * i, ellipse)
 
-    def drawShadow(self):
+    def drawShadow(self,shadowColor):
         ellipse = pygame.Rect(self.pos.x - 15, self.pos.y - 9, 24, 24)
-        pygame.draw.ellipse(self.head.game.screen, (35, 25, 15, 128), ellipse)
+        pygame.draw.ellipse(self.head.game.screen, shadowColor, ellipse)
 
     def drawLight(self, colour, i):
         ellipse = pygame.Rect(self.pos.x - 9, self.pos.y - 11, 20, 20)
-        pygame.draw.ellipse(self.head.game.screen, (100, 200, 25) - colour * i, ellipse)
+        pygame.draw.ellipse(self.head.game.screen, self.head.snakeColor - colour * i, ellipse)
 
     def drawLastShade(self, colour):
         ellipse = pygame.Rect(self.pos.x - 10, self.pos.y - 10, 20, 20)
-        pygame.draw.ellipse(self.head.game.screen, (50, 120, 20) - colour, ellipse)
+        pygame.draw.ellipse(self.head.game.screen, self.head.shadeColor - colour, ellipse)
 
     def drawLastLight(self, colour):
         ellipse = pygame.Rect(self.pos.x - 8, self.pos.y - 8, 16, 16)
-        pygame.draw.ellipse(self.head.game.screen, (100, 200, 25) - colour, ellipse)
+        pygame.draw.ellipse(self.head.game.screen, self.head.snakeColor - colour, ellipse)
 
 

@@ -2,6 +2,8 @@ import pygame, sys ,os, random
 from src.snake import Snake
 from src.appleManager import AppleManager
 
+
+shadowColor = pygame.math.Vector3(40,30,15)
 class Game(object):
 
     def __init__(self):
@@ -45,8 +47,8 @@ class Game(object):
 
     def draw(self): # to co ma sie wykonywac najszybciej jak sie da
         self.screen.blit(self.background,(0,0))
-        self.apples.drawShadow()
-        self.player.drawShadow()
+        self.apples.drawShadow(shadowColor)
+        self.player.drawShadow(shadowColor)
         self.player.draw()
         self.apples.draw()
 

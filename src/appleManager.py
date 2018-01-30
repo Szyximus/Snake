@@ -21,10 +21,10 @@ class AppleManager:
         for i in range(len(self.apples) - 1, -1, -1):
             self.apples[i].draw()
 
-    def drawShadow(self):
+    def drawShadow(self, shadowColor):
 
         for i in range(len(self.apples) - 1, -1, -1):
-            self.apples[i].drawShadow()
+            self.apples[i].drawShadow(shadowColor)
 
 class Apple(object):
 
@@ -52,8 +52,8 @@ class Apple(object):
         ellipse = pygame.Rect(self.pos.x , self.pos.y - 10, 2, 6)
         pygame.draw.ellipse(self.manager.game.screen, (50, 25, 5), ellipse)
 
-    def drawShadow(self):
+    def drawShadow(self, shadowColor):
         ellipse = pygame.Rect(self.pos.x - 16, self.pos.y - 6, 20, 20)
-        pygame.draw.ellipse(self.manager.game.screen, (35, 25, 15), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, shadowColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 12, self.pos.y - 6, 20, 20)
-        pygame.draw.ellipse(self.manager.game.screen, (35, 25, 15), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, shadowColor, ellipse)
