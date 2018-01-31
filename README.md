@@ -9,7 +9,7 @@ Snake game in pygame
 ## Starting
 Start the game using launch.bat (Windows) or launch.sh (Linux)
 
-##Controls:
+## Controls:
 move: WSAD
 spawn apple: p
 add length: space
