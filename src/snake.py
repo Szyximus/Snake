@@ -12,11 +12,12 @@ class Snake(object):
         self.width = size[0] #szerokosc siatki
         self.height = size[1] #wysokosc
         self.map = pygame.display.set_mode((self.width, self.height))
-        self.length = 2
+        self.length = 3
         self.ruch = Vector2(0, - self.vel)
         self.tail =[]
         self.tail.append(Segment(self, self.pos - self.ruch))
         self.tail.append(Segment(self, self.pos - 2 * self.ruch))
+        self.tail.append(Segment(self, self.pos - 3 * self.ruch))
 
         self.subtractColor = Vector3(30,70,10)
         self.shadeColor = Vector3(80, 120, 20)
@@ -42,15 +43,53 @@ class Snake(object):
         if pressed[pygame.K_d] and self.ruch.x != -self.vel:
             self.ruch = Vector2(self.vel, 0)
 
-        if pressed[pygame.K_SPACE]:
-            self.length += 1
-            self.tail.append(Segment(self, self.tail[-1].pos - self.ruch))
-
         for i in range(self.length - 1 , 0, -1):
             self.tail[i].pos = self.tail[i - 1].pos
 
         self.tail[0].pos = self.pos + Vector2(0,0)
         self.pos += self.ruch
+
+        for apple in self.game.apples.apples:
+            if self.pos + self.ruch == apple.pos or self.pos == apple.pos:
+                self.eatApple(apple)
+
+        for segment in self.tail:
+            if self.pos == segment.pos:
+                self.die()
+
+        if self.pos.x == 0 or self.pos.y == 0 or self.pos.x == self.width or self.pos.y == self.height:
+            self.die()
+
+    def die(self):
+
+        self.game.sounds.deathSound.play()
+        if random.randint(0,5) == 5:
+            self.game.sounds.deathSound2.play()
+
+        size = self.game.screen.get_size()  # zwraca krotke x, y
+        self.pos = Vector2(size[0] / 2, size[1] / 2)  # polozenie
+        self.vel = 16 # predkosc pixels/frame
+
+        self.length = 3
+        self.ruch = Vector2(0, - self.vel)
+        self.tail = []
+        self.tail.append(Segment(self, self.pos - self.ruch))
+        self.tail.append(Segment(self, self.pos - 2 * self.ruch))
+        self.tail.append(Segment(self, self.pos - 3 * self.ruch))
+
+        self.game.apples.apples = []
+        self.game.apples.counter = 0
+
+        pygame.time.wait(250)
+
+    def eatApple(self, apple):
+
+        self.game.sounds.eatSound.play()
+        self.length += 1
+        self.tail.append(Segment(self, self.tail[-1].pos))
+        self.game.apples.apples.remove(apple)
+
+        pygame.time.wait(100)
 
     def draw(self):
 
@@ -74,8 +113,7 @@ class Snake(object):
         pygame.draw.ellipse(self.game.screen, self.shadeColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 13, self.pos.y - 15, 28, 28)
         pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
-        ellipse = pygame.Rect(self.pos.x - 5, self.pos.y - 9, 14, 14)
-        pygame.draw.ellipse(self.game.screen,  self.highlightColor, ellipse)
+
 
         if self.ruch.y == -self.vel:
             ellipse = pygame.Rect(self.pos.x - 1, self.pos.y - 19, 12, 12)
@@ -167,6 +205,9 @@ class Snake(object):
 
             ellipse = pygame.Rect(self.pos.x - 10, self.pos.y - 11, 8, 18)
             pygame.draw.ellipse(self.game.screen, self.snakeColor, ellipse)
+
+        ellipse = pygame.Rect(self.pos.x - 5, self.pos.y - 9, 14, 14)
+        pygame.draw.ellipse(self.game.screen, self.highlightColor, ellipse)
 
     def drawShadow(self,shadowColor):
 

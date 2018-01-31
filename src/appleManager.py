@@ -8,12 +8,22 @@ class AppleManager:
         self.game = game
         self.apples = []
         self.timer = interval
+        self.appleColor = Vector3(200, 30,25)
+        self.shadeColor = Vector3(130,25, 20)
+        self.highlightColor = Vector3(240, 50, 30)
+        self.brown = Vector3(50, 25, 5)
+        self.leafColor = Vector3(60, 100, 40)
+
+        self.counter = 0
 
     def tick(self):
         # input
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_p]:
+        if len(self.apples) == 0 or pressed[pygame.K_p] or self.counter == 100:
             self.apples.append(Apple(self))
+            self.counter = 0
+
+        self.counter += 1
 
 
     def draw(self):
@@ -34,23 +44,26 @@ class Apple(object):
 
     def draw(self):
         ellipse = pygame.Rect(self.pos.x - 12, self.pos.y - 10, 20, 20)
-        pygame.draw.ellipse(self.manager.game.screen, (100, 0, 0), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.shadeColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 8, self.pos.y - 10, 20, 20)
-        pygame.draw.ellipse(self.manager.game.screen, (100, 0, 0), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.shadeColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x - 10, self.pos.y - 9, 18, 14)
-        pygame.draw.ellipse(self.manager.game.screen, (150, 0, 0), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.appleColor, ellipse)
         ellipse = pygame.Rect(self.pos.x - 7, self.pos.y - 9, 18, 14)
-        pygame.draw.ellipse(self.manager.game.screen, (150, 0, 0), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.appleColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x - 2, self.pos.y - 7, 6, 4)
-        pygame.draw.ellipse(self.manager.game.screen, (100, 0, 0), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.shadeColor, ellipse)
 
         ellipse = pygame.Rect(self.pos.x + 4, self.pos.y - 5, 6, 4)
-        pygame.draw.ellipse(self.manager.game.screen, (200, 25, 10), ellipse)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.highlightColor, ellipse)
 
-        ellipse = pygame.Rect(self.pos.x , self.pos.y - 10, 2, 6)
-        pygame.draw.ellipse(self.manager.game.screen, (50, 25, 5), ellipse)
+        ellipse = pygame.Rect(self.pos.x , self.pos.y - 11, 2, 7)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.brown, ellipse)
+
+        ellipse = pygame.Rect(self.pos.x, self.pos.y - 11, 7, 4)
+        pygame.draw.ellipse(self.manager.game.screen, self.manager.leafColor, ellipse)
 
     def drawShadow(self, shadowColor):
         ellipse = pygame.Rect(self.pos.x - 16, self.pos.y - 6, 20, 20)
