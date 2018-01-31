@@ -225,7 +225,7 @@ class Pause:
 
         self.vec = Vector2(sin(self.counter / 8) * 32, sin(self.counter / 12) * 18)
 
-        self.vec1 = Vector2(0, max(500 - self.counter1, 0))
+        self.vec1 = Vector2(0, max(540 - self.counter1, 0))
 
         self.title_pole.topleft = (154 +self.vec.x, 54 +self.vec.y + self.vec1.y)
         self.shadow_pole.topleft = (150 +self.vec.x, 57 +self.vec.y + self.vec1.y)
@@ -246,7 +246,7 @@ class Pause:
     def draw(self):
         self.game.screen.blit(self.game.background, (0, 0))
 
-        if max(550 - self.counter1, 0) == 0:
+        if max(585 - self.counter1, 0) == 0:
             self.game.screen.blit(self.controls_shadow, self.controls_shadow_pole)
             self.game.screen.blit(self.w_shadow, self.w_shadow_pole)
             self.game.screen.blit(self.s_shadow, self.s_shadow_pole)
