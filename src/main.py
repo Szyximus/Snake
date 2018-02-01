@@ -229,8 +229,8 @@ class Pause:
 
         self.vec1 = Vector2(0, max(540 - self.counter1, 0))
 
-        self.title_pole.topleft = (154 +self.vec.x, 54 +self.vec.y + self.vec1.y)
-        self.shadow_pole.topleft = (150 +self.vec.x, 57 +self.vec.y + self.vec1.y)
+        self.title_pole.topleft = (144 +self.vec.x, 54 +self.vec.y + self.vec1.y)
+        self.shadow_pole.topleft = (140 +self.vec.x, 57 +self.vec.y + self.vec1.y)
 
         self.play_pole.topleft = (170 + self.vec.x / 8, 474 + self.vec.y / 8)
         self.play_shadow_pole.topleft = (168 + self.vec.x / 8, 476 + self.vec.y / 8)
