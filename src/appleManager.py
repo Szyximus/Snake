@@ -2,14 +2,14 @@ import pygame, random, time
 from pygame.math import Vector2
 from pygame.math import Vector3
 
-class AppleManager:
 
+class AppleManager:
     def __init__(self, game, interval):
         self.game = game
         self.apples = []
         self.timer = interval
-        self.appleColor = Vector3(200, 30,25)
-        self.shadeColor = Vector3(130,25, 20)
+        self.appleColor = Vector3(200, 30, 25)
+        self.shadeColor = Vector3(130, 25, 20)
         self.highlightColor = Vector3(240, 50, 30)
         self.brown = Vector3(50, 25, 5)
         self.leafColor = Vector3(60, 100, 40)
@@ -25,7 +25,6 @@ class AppleManager:
 
         self.counter += 1
 
-
     def draw(self):
 
         for i in range(len(self.apples) - 1, -1, -1):
@@ -36,10 +35,10 @@ class AppleManager:
         for i in range(len(self.apples) - 1, -1, -1):
             self.apples[i].drawShadow(shadowColor)
 
-class Apple(object):
 
+class Apple(object):
     def __init__(self, manager):
-        self.pos = Vector2(random.randint(2,39) * 16, random.randint(2,39) * 16)
+        self.pos = Vector2(random.randint(2, 39) * 16, random.randint(2, 39) * 16)
         self.manager = manager
 
     def draw(self):
@@ -59,7 +58,7 @@ class Apple(object):
         ellipse = pygame.Rect(self.pos.x + 4, self.pos.y - 5, 6, 4)
         pygame.draw.ellipse(self.manager.game.screen, self.manager.highlightColor, ellipse)
 
-        ellipse = pygame.Rect(self.pos.x , self.pos.y - 11, 2, 7)
+        ellipse = pygame.Rect(self.pos.x, self.pos.y - 11, 2, 7)
         pygame.draw.ellipse(self.manager.game.screen, self.manager.brown, ellipse)
 
         ellipse = pygame.Rect(self.pos.x, self.pos.y - 11, 7, 4)
