@@ -1,7 +1,7 @@
 import pygame, sys ,os, random
-from src.snake import Snake
-from src.appleManager import AppleManager
-from src.soundManager import SoundManager
+from snake import Snake
+from appleManager import AppleManager
+from soundManager import SoundManager
 from pygame.math import Vector2
 from math import sin
 from math import cos
@@ -21,15 +21,17 @@ class Game(object):
 
         self.sounds = SoundManager(self)
 
-        self.smallFont = pygame.font.Font("./graphics/German Beauty.ttf", 18)
-        self.largeFont = pygame.font.Font("./graphics/German Beauty.ttf", 128)
-        self.mediumFont = pygame.font.Font("./graphics/German Beauty.ttf", 32)
+        dir = os.path.dirname(__file__)
+
+        self.smallFont = pygame.font.Font(os.path.join(dir,"../graphics/German Beauty.ttf"), 18)
+        self.largeFont = pygame.font.Font(os.path.join(dir,"../graphics/German Beauty.ttf"), 128)
+        self.mediumFont = pygame.font.Font(os.path.join(dir,"../graphics/German Beauty.ttf"), 32)
 
         pygame.display.set_caption('Snake!')
 
         self.label = Label(self)
 
-        self.background = pygame.image.load('./graphics/background.png')
+        self.background = pygame.image.load(os.path.join('../graphics/background.png'))
         self.shadowColor = pygame.math.Vector3(40, 30, 15)
 
         self.player = Snake(self)
